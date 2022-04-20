@@ -1,3 +1,3 @@
 from .Poems import Poem as PoemModel
-from .Users import Users as UsersModel
+from .Users import User as UserModel
 from .Scores import Score as ScoreModel

@@ -1,36 +1,29 @@
 from flask_restful import Resource
-from flask import request
-
-# Test dictionary
-USERS = {
-    1: {'firstname': 'Sacha', 'lastname': 'Fenske'},
-    2: {'firstname': 'Santiago', 'lastname': 'Moyano'},
-    3: {'firstname': 'Lucas', 'lastname': 'Galdame'},
-    4: {'firstname': 'Bruno', 'lastname': 'Romero'},
-    5: {'firstname': 'Douglas', 'lastname': 'Arenas'}
-}
+from flask import request, jsonify
+from .. import db
+from main.models import UserModel
 
 
 class User(Resource):
     def get(self, id):
-        if int(id) in USERS:
-            return USERS[int(id)]
-        return '', 404
+        user = db.session.query(UserModel).get_or_404(id)
+        return user.to_json()
 
     def delete(self, id):
-        if int(id) in USERS:
-            del USERS[int(id)]
-            return '', 204
-        return '', 404
+        user = db.session.query(UserModel).get_or_404(id)
+        db.session.delete(user)
+        db.session.commit()
+        return '', 204
 
 
 class Users(Resource):
     def get(self):
-        return USERS
+        users = db.session.query(UserModel).all()
+        return jsonify([user.to_json_short() for user in users])
 
     def post(self):
-        user = request.get_json()
-        id = int(max(USERS)) + 1
-        USERS[id] = user
-        return USERS[id], 201
+        users = UserModel.from_json(request.get_json())
+        db.session.add(users)
+        db.session.commit()
+        return users.to_json(), 201
 

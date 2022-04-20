@@ -1,7 +1,7 @@
 from .. import db
 
 
-class Users(db.Model):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(80), nullable=False)
     lastname = db.Column(db.String(80), nullable=False)
@@ -33,10 +33,9 @@ class Users(db.Model):
         lastname = user_json.get('lastname')
         roll = user_json.get('roll')
         email = user_json.get('email')
-        return Users(id=id,
-                     firstname=firstname,
-                     lastname=lastname,
-                     roll=roll,
-                     email=email
-                     )
-
+        return User(id=id,
+                    firstname=firstname,
+                    lastname=lastname,
+                    roll=roll,
+                    email=email
+                    )

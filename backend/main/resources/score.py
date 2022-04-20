@@ -6,16 +6,24 @@ from main.models import ScoreModel
 
 class Score(Resource):
     def get(self, id):
-        pass
+        score = db.session.query(ScoreModel).get_or_404(id)
+        return score.to_json()
 
     def delete(self, id):
-        pass
+        score = db.session.query(ScoreModel).get_or_404(id)
+        db.session.delete(score)
+        db.session.commit()
+        return '', 204
 
 
 class Scores(Resource):
     def get(self):
-        pass
+        scores = db.session.query(ScoreModel).all()
+        return jsonify([score.to_json_short() for score in scores])
 
     def post(self):
-        pass
+        score = ScoreModel.from_json(request.get_json())
+        db.session.add(score)
+        db.session.commit()
+        return score.to_json(), 201
 
