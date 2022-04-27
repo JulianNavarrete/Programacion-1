@@ -11,14 +11,12 @@ class Score(db.Model):
     poem = db.relationship('Poems', back_populates='score', uselist=False, single_parent=True)
 
     def __repr__(self):
-        user = [user.to_json() for user in self.user]
-        poem = [poem.to_json() for poem in self.poem]
         score_json = {
             'id': self.id,
             'score': self.score,
             'comment': self.comment,
-            'user': user,
-            'poem': poem
+            'user': [user.to_json_short() for user in self.user],
+            'poem': [poem.to_json_short() for poem in self.poem]
         }
         return score_json
 
@@ -32,7 +30,6 @@ class Score(db.Model):
 
     def to_json_short(self):
         score_json = {
-            'id': self.id,
             'score': int(self.score),
             'comment': str(self.comment),
             'userId': self.user.to_json(),

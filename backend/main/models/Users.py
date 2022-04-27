@@ -21,8 +21,6 @@ class User(db.Model):
         }
 
     def to_json(self):
-        score = [score.to_json() for score in self.score]
-        poem = [poem.to_json() for poem in self.poem]
         user_json = {
             'id': self.id,
             'firstname': self.firstname,
@@ -30,8 +28,8 @@ class User(db.Model):
             'role': self.role,
             'email': self.email,
             'password': self.password,
-            'score': score,
-            'poem': poem
+            'score': [score.to_json() for score in self.score],
+            'poem': [poem.to_json() for poem in self.poem]
         }
         return user_json
 
@@ -44,6 +42,7 @@ class User(db.Model):
             'email': self.email,
             'password': self.password
         }
+        return user_json
 
     @staticmethod
     def from_json(user_json):
