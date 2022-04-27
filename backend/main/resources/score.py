@@ -5,6 +5,7 @@ from main.models import ScoreModel
 
 
 class Score(Resource):
+
     def get(self, id):
         score = db.session.query(ScoreModel).get_or_404(id)
         return score.to_json()
@@ -17,8 +18,18 @@ class Score(Resource):
 
 
 class Scores(Resource):
+
     def get(self):
-        scores = db.session.query(ScoreModel).all()
+        page = 1
+        per_page = 10
+        scores = db.session.query(ScoreModel)
+        if request.get_json():
+            filters = request.get_json().items()
+            for key, value in filters:
+                if key == 'page':
+                    page = int(value)
+                if key == 'per_page':
+                    per_page = value
         return jsonify([score.to_json_short() for score in scores])
 
     def post(self):

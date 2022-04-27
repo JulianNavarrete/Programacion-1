@@ -5,6 +5,7 @@ from main.models import PoemModel
 
 
 class Poem(Resource):
+
     def get(self, id):
         poem = db.session.query(PoemModel).get_or_404(id)
         return poem.to_json()
@@ -17,6 +18,7 @@ class Poem(Resource):
 
 
 class Poems(Resource):
+
     def get(self):
         poems = db.session.query(PoemModel).all()
         return jsonify([poem.to_json_short() for poem in poems])

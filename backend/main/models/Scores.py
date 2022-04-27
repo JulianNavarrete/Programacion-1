@@ -5,16 +5,20 @@ class Score(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     score = db.Column(db.Integer, primary_Key=True)
     comment = db.Column(db.Integer, nullable=False)
-    userId = db.Column(db.Integer)
-    poemId = db.Column(db.Integer)
+    userId = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    poemId = db.Column(db.Integer, db.ForeignKey('poem.id'), nullable=False)
+    user = db.relationship('Users', back_populates='score', uselist=False, single_parent=True)
+    poem = db.relationship('Poems', back_populates='score', uselist=False, single_parent=True)
 
     def __repr__(self):
+        user = [user.to_json() for user in self.user]
+        poem = [poem.to_json() for poem in self.poem]
         score_json = {
-            'userId': self.userId,
-            'poemId': self.poemId,
-            'comment': self.comment,
             'id': self.id,
-            'score': self.score
+            'score': self.score,
+            'comment': self.comment,
+            'user': user,
+            'poem': poem
         }
         return score_json
 
@@ -23,6 +27,16 @@ class Score(db.Model):
             'id': self.id,
             'score': self.score,
             'userId': self.userId
+        }
+        return score_json
+
+    def to_json_short(self):
+        score_json = {
+            'id': self.id,
+            'score': int(self.score),
+            'comment': str(self.comment),
+            'userId': self.user.to_json(),
+            'poemId': self.poem.to_json()
         }
         return score_json
 
