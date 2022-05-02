@@ -8,8 +8,8 @@ class Poem(db.Model):
     body = db.Column(db.String(100), nullable=False)
     date = db.Column(db.DateTime, nullable=False)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = db.relationship('User', backpopulate='poem', uselist=False, single_parent=True)
-    score = db.relationship('Score', backpopulate='poem', cascade='all, delete-orphan')
+    user = db.relationship('User', back_populates='poems', uselist=False, single_parent=True)
+    scores = db.relationship('Score', back_populates='poem', cascade='all, delete-orphan')
 
     def __repr__(self):
         poem_json = {
@@ -22,11 +22,12 @@ class Poem(db.Model):
         return poem_json
 
     def to_json(self):
-
-        scores_list = []
-        for score in self.scores:
-            scores_list.append(score.score)
-        avg_score = statistics.mean(scores_list)
+        avg_score = 0
+        if len(self.scores) != 0:
+            scores_list = []
+            for score in self.scores:
+                scores_list.append(score.score)
+            avg_score = statistics.mean(scores_list)
 
         poem_json = {
             'id': self.id,

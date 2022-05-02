@@ -134,3 +134,5 @@ dmypy.json
 /lib64
 pyvenv.cfg
 /lib
+/include/site/python3.10/greenlet/greenlet.h
+/database.db

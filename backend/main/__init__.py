@@ -13,7 +13,7 @@ def create_app():
     # Initialize Flask
     app = Flask(__name__)
 
-    # Load environment  variables
+    # Load environment variables
     load_dotenv()
 
     if not os.path.exists(os.getenv('DATABASE_PATH') + os.getenv('DATABASE_NAME')):
@@ -25,14 +25,15 @@ def create_app():
 
     import main.resources as resources
     # Here will be initialized the rest of the app modules
-    api.add_resource(resources.QualificationResource, '/score/<id>')
-    api.add_resource(resources.QualificationsResource, '/scores')
+    api.add_resource(resources.ScoreResource, '/score/<id>')
+    api.add_resource(resources.ScoresResource, '/scores')
     api.add_resource(resources.PoemResource, '/poem/<id>')
     api.add_resource(resources.PoemsResource, '/poems')
     api.add_resource(resources.UserResource, '/user/<id>')
     api.add_resource(resources.UsersResource, '/users')
 
     # Return initialized app
+    # Flask.register_blueprint(app)
     api.init_app(app)
     return app
 
