@@ -37,7 +37,7 @@ class Poem(db.Model):
             'body': self.body,
             'date': str(self.date.strftime('%Y-%m-%d %H:%M:%S')),
             'user': self.user.to_json_short(),
-            'avg_score': self.get_average_score(),
+            'score': self.get_average_score(),
         }
         return poem_json
 
@@ -46,7 +46,6 @@ class Poem(db.Model):
             'title': self.title,
             'body': self.body,
             'date': str(self.date.strftime('%Y-%m-%d %H:%M:%S')),
-            'avg_score': self.get_average_score()
         }
         return poem_json
 
