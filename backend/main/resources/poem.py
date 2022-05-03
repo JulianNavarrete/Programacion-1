@@ -1,8 +1,9 @@
 from flask_restful import Resource
 from flask import request, jsonify
 from datetime import datetime
+from sqlalchemy import func
 from .. import db
-from main.models import PoemModel
+from main.models import PoemModel, UserModel, ScoreModel
 
 
 class Poem(Resource):
@@ -40,7 +41,17 @@ class Poems(Resource):
                 if key == 'date[lte]':
                     poems = poems.filter(PoemModel.date <= datetime.strptime(value, '%d-%m-%Y'))
                 if key == 'author':
-                    poems = poems.filter(PoemModel.user.has(author).like('%' + value + '%'))
+                    poems = poems.filter(PoemModel.user.has(UserModel.lastname.like('%' + value + '%')))
+
+                if key == 'sort_by':
+                    if value == 'date':
+                        poems = poems.order_by(PoemModel.date)
+                    if value == 'date[desc]':
+                        poems = poems.order_by(PoemModel.date.desc())
+                    if value == 'score':
+                        poems = poems.outerjoin(PoemModel.scores).group_by(PoemModel.id).order_by(func.avg(ScoreModel.score))
+                    if value == 'score[desc]':
+                        poems = poems.outerjoin(PoemModel.scores).group_by(PoemModel.id).order_by(func.avg(ScoreModel.score).desc())
 
         poems = poems.paginate(page, per_page, True, 10)
         return jsonify({"poems": [poem.to_json_short() for poem in poems.items()],

@@ -21,21 +21,23 @@ class Poem(db.Model):
         }
         return poem_json
 
-    def to_json(self):
-        avg_score = 0
-        if len(self.scores) != 0:
+    def get_average_score(self):
+        if len(self.scores) == 0:
+            return 0
+        else:
             scores_list = []
             for score in self.scores:
                 scores_list.append(score.score)
-            avg_score = statistics.mean(scores_list)
+            return statistics.mean(scores_list)
 
+    def to_json(self):
         poem_json = {
             'id': self.id,
             'title': self.title,
             'body': self.body,
             'date': str(self.date.strftime('%Y-%m-%d %H:%M:%S')),
             'user': self.user.to_json_short(),
-            'score': avg_score
+            'score': self.get_average_score(),
         }
         return poem_json
 
