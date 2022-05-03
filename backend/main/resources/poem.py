@@ -52,6 +52,10 @@ class Poems(Resource):
                         poems = poems.outerjoin(PoemModel.scores).group_by(PoemModel.id).order_by(func.avg(ScoreModel.score))
                     if value == 'score[desc]':
                         poems = poems.outerjoin(PoemModel.scores).group_by(PoemModel.id).order_by(func.avg(ScoreModel.score).desc())
+                    if value == 'author':
+                        poems = poems.outerjoin(PoemModel.scores).group_by(PoemModel.id).order_by(UserModel.name)
+                    if value == 'author[desc]':
+                        poems = poems.outerjoin(PoemModel.scores).group_by(PoemModel.id).order_by(UserModel.name.desc())
 
         poems = poems.paginate(page, per_page, True, 10)
         return jsonify({"poems": [poem.to_json_short() for poem in poems.items()],

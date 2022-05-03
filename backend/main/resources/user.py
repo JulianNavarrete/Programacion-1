@@ -29,7 +29,26 @@ class User(Resource):
 class Users(Resource):
 
     def get(self):
-        users = db.session.query(UserModel).all()
+        page = 1
+        per_page = 10
+        users = db.session.query(UserModel)
+        if request.get_json():
+            filters = request.get_json().items()
+            for key, value in filters:
+                if key == 'page':
+                    page = value
+                if key == 'per_page':
+                    per_page = value
+                if key == 'name':
+                    users = users.filter(UserModel.name.like('%' + value + '%'))
+
+                if key == 'sort_by':
+                    if value == 'name':
+                        users = users.order_by(UserModel.name)
+                    if value == '':
+
+
+
         return jsonify([user.to_json_short() for user in users])
 
     def post(self):

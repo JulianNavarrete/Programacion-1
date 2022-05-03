@@ -3,8 +3,7 @@ from .. import db
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    firstname = db.Column(db.String(80), nullable=False)
-    lastname = db.Column(db.String(80), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
     role = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(80), nullable=False)
     password = db.Column(db.String(80), nullable=False)
@@ -14,8 +13,7 @@ class User(db.Model):
     def __repr__(self):
         user_json = {
             'id': self.id,
-            'firstname': self.firstname,
-            'lastname': self.lastname,
+            'name': self.name,
             'role': self.role,
             'email': self.email
         }
@@ -24,8 +22,7 @@ class User(db.Model):
     def to_json(self):
         user_json = {
             'id': self.id,
-            'firstname': self.firstname,
-            'lastname': self.lastname,
+            'name': self.name,
             # 'role': self.role,
             'email': self.email,
             # 'password': self.password,
@@ -39,8 +36,7 @@ class User(db.Model):
     def to_json_short(self):
         user_json = {
             'id': self.id,
-            'firstname': self.firstname,
-            'lastname': self.lastname,
+            'name': self.name,
             'role': self.role,
             'email': self.email,
             'password': self.password
@@ -50,14 +46,12 @@ class User(db.Model):
     @staticmethod
     def from_json(user_json):
         id = user_json.get('id')
-        firstname = user_json.get('firstname')
-        lastname = user_json.get('lastname')
+        name = user_json.get('name')
         role = user_json.get('role')
         email = user_json.get('email')
         password = user_json.get('password')
         return User(id=id,
-                    firstname=firstname,
-                    lastname=lastname,
+                    name=name,
                     role=role,
                     email=email,
                     password=password

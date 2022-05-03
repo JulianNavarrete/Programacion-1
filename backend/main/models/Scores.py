@@ -7,8 +7,8 @@ class Score(db.Model):
     comment = db.Column(db.Integer, nullable=False)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     poemId = db.Column(db.Integer, db.ForeignKey('poem.id'), nullable=False)
-    user = db.relationship('Users', back_populates='scores', uselist=False, single_parent=True)
-    poem = db.relationship('Poems', back_populates='scores', uselist=False, single_parent=True)
+    user = db.relationship('User', back_populates='scores', uselist=False, single_parent=True)
+    poem = db.relationship('Poem', back_populates='scores', uselist=False, single_parent=True)
 
     def __repr__(self):
         score_json = {
