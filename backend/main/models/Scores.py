@@ -24,16 +24,17 @@ class Score(db.Model):
         score_json = {
             'id': self.id,
             'score': self.score,
-            'userId': self.userId
+            'comment': self.comment,
+            'user': self.user.to_json_short(),
+            'poem': self.poem.to_json_short()
         }
         return score_json
 
     def to_json_short(self):
         score_json = {
+            'id': self.id,
             'score': int(self.score),
             'comment': str(self.comment),
-            'userId': self.user.to_json(),
-            'poemId': self.poem.to_json()
         }
         return score_json
 
