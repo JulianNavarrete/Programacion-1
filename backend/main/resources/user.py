@@ -45,14 +45,11 @@ class Users(Resource):
                 if key == 'sort_by':
                     if value == 'name':
                         users = users.order_by(UserModel.name)
-                    if value == 'name[desc]':
-                        users = users.order_by(UserModel.name.desc())
+                    if value == '':
 
-        users = users.paginate(page, per_page, True, 10)
-        return jsonify({'users': [user.to_json_short() for user in users.items()],
-                        'total': users.total,
-                        'pages': users.pages,
-                        'page': page})
+
+
+        return jsonify([user.to_json_short() for user in users])
 
     def post(self):
         users = UserModel.from_json(request.get_json())

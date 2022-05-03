@@ -58,10 +58,10 @@ class Poems(Resource):
                         poems = poems.outerjoin(PoemModel.scores).group_by(PoemModel.id).order_by(UserModel.name.desc())
 
         poems = poems.paginate(page, per_page, True, 10)
-        return jsonify({'poems': [poem.to_json_short() for poem in poems.items()],
-                        'total': poems.total,
-                        'pages': poems.pages,
-                        'page': page})
+        return jsonify({"poems": [poem.to_json_short() for poem in poems.items()],
+                        "total": poems.total,
+                        "pages": poems.pages,
+                        "page": page})
 
     def post(self):
         poems = PoemModel.from_json(request.get_json())
