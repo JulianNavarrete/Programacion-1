@@ -63,7 +63,7 @@ class Poems(Resource):
                         "pages": poems.pages,
                         "page": page})
 
-    @jwt_required
+    # @jwt_required
     def post(self):
         poems = PoemModel.from_json(request.get_json())
         db.session.add(poems)

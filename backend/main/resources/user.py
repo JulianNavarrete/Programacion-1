@@ -36,9 +36,9 @@ class Users(Resource):
             filters = request.get_json().items()
             for key, value in filters:
                 if key == 'page':
-                    page = value
+                    page = int(value)
                 if key == 'per_page':
-                    per_page = value
+                    per_page = int(value)
                 if key == 'name':
                     users = users.filter(UserModel.name.like('%' + value + '%'))
 
