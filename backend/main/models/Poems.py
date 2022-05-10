@@ -7,7 +7,7 @@ class Poem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     body = db.Column(db.String(100), nullable=False)
-    date = db.Column(db.DateTime, nullable=False)
+    date = db.Column(db.DateTime, default=dt.datetime.now(), nullable=False)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', back_populates='poems', uselist=False, single_parent=True)
     scores = db.relationship('Score', back_populates='poem', cascade='all, delete-orphan')
@@ -57,12 +57,10 @@ class Poem(db.Model):
         id = poem_json.get('id')
         title = poem_json.get('title')
         body = poem_json.get('body')
-        date = dt.datetime.strptime(poem_json.get('date'), '%Y-%m-%d %H:%M:%S')
         userId = poem_json.get('userId')
         return Poem(id=id,
                     title=title,
                     body=body,
-                    date=date,
                     userId=userId
                     )
 

@@ -41,7 +41,7 @@ class Poems(Resource):
                 if key == 'date[lte]':
                     poems = poems.filter(PoemModel.date <= datetime.strptime(value, '%d-%m-%Y'))
                 if key == 'author':
-                    poems = poems.filter(PoemModel.user.has(UserModel.lastname.like('%' + value + '%')))
+                    poems = poems.filter(PoemModel.user.has(UserModel.name.like('%' + value + '%')))
 
                 if key == 'sort_by':
                     if value == 'date':
@@ -53,9 +53,9 @@ class Poems(Resource):
                     if value == 'score[desc]':
                         poems = poems.outerjoin(PoemModel.scores).group_by(PoemModel.id).order_by(func.avg(ScoreModel.score).desc())
                     if value == 'author':
-                        poems = poems.outerjoin(PoemModel.scores).group_by(PoemModel.id).order_by(UserModel.name)
+                        poems = poems.outerjoin(PoemModel.user).group_by(PoemModel.id).order_by(UserModel.name)
                     if value == 'author[desc]':
-                        poems = poems.outerjoin(PoemModel.scores).group_by(PoemModel.id).order_by(UserModel.name.desc())
+                        poems = poems.outerjoin(PoemModel.user).group_by(PoemModel.id).order_by(UserModel.name.desc())
 
         poems = poems.paginate(page, per_page, True, 10)
         return jsonify({"poems": [poem.to_json_short() for poem in poems.items],
