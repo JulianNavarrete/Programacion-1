@@ -33,8 +33,8 @@ class Score(db.Model):
     def to_json_short(self):
         score_json = {
             'id': self.id,
-            'score': int(self.score),
-            'comment': str(self.comment),
+            'score': self.score,
+            'comment': self.comment,
         }
         return score_json
 

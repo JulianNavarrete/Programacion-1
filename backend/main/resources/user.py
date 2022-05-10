@@ -49,7 +49,7 @@ class Users(Resource):
                         users = users.order_by(UserModel.name.desc())
 
                 users = users.paginate(page, per_page, True, 10)
-                return jsonify({'users': [user.to_json_short() for user in users.items()],
+                return jsonify({'users': [user.to_json_short() for user in users.items],
                                 'total': users.total,
                                 'pages': users.pages,
                                 'page': page})

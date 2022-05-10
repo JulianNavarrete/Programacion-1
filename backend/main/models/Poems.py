@@ -1,5 +1,6 @@
 import statistics
 from .. import db
+import datetime as dt
 
 
 class Poem(db.Model):
@@ -43,6 +44,7 @@ class Poem(db.Model):
 
     def to_json_short(self):
         poem_json = {
+            'id': self.id,
             'title': self.title,
             'body': self.body,
             'date': str(self.date.strftime('%Y-%m-%d %H:%M:%S')),
@@ -55,7 +57,7 @@ class Poem(db.Model):
         id = poem_json.get('id')
         title = poem_json.get('title')
         body = poem_json.get('body')
-        date = poem_json.get('date')
+        date = dt.datetime.strptime(poem_json.get('date'), '%Y-%m-%d %H:%M:%S')
         userId = poem_json.get('userId')
         return Poem(id=id,
                     title=title,
