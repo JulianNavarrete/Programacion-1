@@ -54,9 +54,11 @@ class Users(Resource):
                             'pages': users.pages,
                             'page': page})
 
+
+'''
     def post(self):
         users = UserModel.from_json(request.get_json())
         db.session.add(users)
         db.session.commit()
         return users.to_json(), 201
-
+'''

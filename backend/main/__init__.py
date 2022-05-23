@@ -3,9 +3,11 @@ from flask import Flask
 from dotenv import load_dotenv
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
+from flask_jwt_extended import JWTManager
 
 api = Api()
 db = SQLAlchemy()
+jwt = JWTManager()
 
 
 # Method for initialize all modules and will return the app
@@ -16,6 +18,7 @@ def create_app():
     # Load environment variables
     load_dotenv()
 
+    # If the database file does not exist, create it (only for SQLite)
     if not os.path.exists(os.getenv('DATABASE_PATH') + os.getenv('DATABASE_NAME')):
         os.mknod(os.getenv('DATABASE_PATH') + os.getenv('DATABASE_NAME'))
 
@@ -32,8 +35,19 @@ def create_app():
     api.add_resource(resources.UserResource, '/user/<id>')
     api.add_resource(resources.UsersResource, '/users')
 
-    # Return initialized app
     # Flask.register_blueprint(app)
     api.init_app(app)
+
+    # Load secret key
+    app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
+    # Load time-to-live
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES'))
+    jwt.init_app(app)
+
+    from main.auth import routes
+    # Import blueprint
+    app.register_blueprint(routes.auth)
+
+    # Return initialized app
     return app
 
