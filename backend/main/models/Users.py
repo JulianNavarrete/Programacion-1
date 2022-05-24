@@ -34,19 +34,6 @@ class User(db.Model):
         user_json = {
             'id': self.id,
             'name': self.name,
-            # 'role': self.role,
-            'email': self.email,
-            'scores': [score.to_json() for score in self.scores],
-            'poems': [poem.to_json() for poem in self.poems],
-            'poem_amount': len(self.poems),
-            'score_amount': len(self.scores)
-        }
-        return user_json
-
-    def to_json_user_or_poet(self):
-        user_json = {
-            'id': self.id,
-            'name': self.name,
             'role': self.role,
             'email': self.email,
             'scores': [score.to_json() for score in self.scores],
@@ -56,11 +43,10 @@ class User(db.Model):
         }
         return user_json
 
-    def to_json_public(self):
+    def to_json_short(self):
         user_json = {
             'id': self.id,
             'name': self.name,
-            'role': self.role,
             'email': self.email,
         }
         return user_json

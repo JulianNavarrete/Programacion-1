@@ -21,6 +21,7 @@ class Poem(Resource):
 
 class Poems(Resource):
 
+    @jwt_required(optional=True)
     def get(self):
         page = 1
         per_page = 10
