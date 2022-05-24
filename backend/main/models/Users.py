@@ -10,6 +10,17 @@ class User(db.Model):
     scores = db.relationship('Score', back_populates='user', cascade='all, delete-orphan')
     poems = db.relationship('Poem', back_populates='user', cascade='all, delete-orphan')
 
+    @property
+    def plain_password(self):
+        raise AttributeError('Password is not a readable attribute')
+
+    @plain_password.setter
+    def plain_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def validate_password(self, password):
+        return check_password_hash(self.password, password)
+
     def __repr__(self):
         user_json = {
             'id': self.id,
@@ -25,7 +36,6 @@ class User(db.Model):
             'name': self.name,
             # 'role': self.role,
             'email': self.email,
-            # 'password': self.password,
             'scores': [score.to_json() for score in self.scores],
             'poems': [poem.to_json() for poem in self.poems],
             'poem_amount': len(self.poems),
@@ -33,13 +43,25 @@ class User(db.Model):
         }
         return user_json
 
-    def to_json_short(self):
+    def to_json_user_or_poet(self):
         user_json = {
             'id': self.id,
             'name': self.name,
             'role': self.role,
             'email': self.email,
-            'password': self.password
+            'scores': [score.to_json() for score in self.scores],
+            'poems': [poem.to_json() for poem in self.poems],
+            'poem_amount': len(self.poems),
+            'score_amount': len(self.scores)
+        }
+        return user_json
+
+    def to_json_public(self):
+        user_json = {
+            'id': self.id,
+            'name': self.name,
+            'role': self.role,
+            'email': self.email,
         }
         return user_json
 
@@ -54,6 +76,6 @@ class User(db.Model):
                     name=name,
                     role=role,
                     email=email,
-                    password=password
+                    plain_password=password
                     )
 
