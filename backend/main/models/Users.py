@@ -1,4 +1,5 @@
 from .. import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class User(db.Model):
@@ -32,7 +33,7 @@ class User(db.Model):
 
     def to_json(self):
         user_json = {
-            'id': self.id,
+            'id': int(self.id),
             'name': self.name,
             'role': self.role,
             'email': self.email,
