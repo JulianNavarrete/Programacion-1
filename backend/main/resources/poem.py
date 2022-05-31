@@ -20,10 +20,12 @@ class Poem(Resource):
         user_ident = get_jwt_identity()
         poem = db.session.query(PoemModel).get_or_404(id)
         if 'role' in claims:
-            if claims['role'] == 'admin' or int(poem.user_id) == user_ident:
+            if claims['role'] == 'admin' or int(poem.userId) == user_ident:
                 db.session.delete(poem)
                 db.session.commit()
                 return '', 204
+            else:
+                return 'You do not have permission to delete this poem'
 
 
 class Poems(Resource):
@@ -85,7 +87,7 @@ class Poems(Resource):
                         "pages": poems.pages,
                         "page": page})
 
-    @jwt_required
+    @jwt_required()
     def post(self):
         user_ident = get_jwt_identity()
         poem = PoemModel.from_json(request.get_json())
@@ -93,7 +95,7 @@ class Poems(Resource):
         claims = get_jwt()
         if 'role' in claims and claims['role'] == 'poet':
             if len(user.poems) == 0 or len(user.scores) >= 2:
-                poem.user_id = user_ident
+                poem.userId = user_ident
                 db.session.add(poem)
                 db.session.commit()
                 return poem.to_json(), 201

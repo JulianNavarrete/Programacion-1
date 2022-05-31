@@ -49,6 +49,7 @@ class User(db.Model):
             'id': self.id,
             'name': self.name,
             'email': self.email,
+            'role': self.role,
         }
         return user_json
 

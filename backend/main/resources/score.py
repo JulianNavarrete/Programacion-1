@@ -19,7 +19,7 @@ class Score(Resource):
         user_ident = get_jwt_identity()
         score = db.session.query(ScoreModel).get_or_404(id)
         if 'role' in claims:
-            if claims['role'] == 'admin' or int(score.user_id) == user_ident:
+            if claims['role'] == 'admin' or int(score.userId) == user_ident:
                 db.session.delete(score)
                 db.session.commit()
                 return '', 204
@@ -51,7 +51,9 @@ class Scores(Resource):
 
     @poet_required
     def post(self):
+        user_ident = get_jwt_identity()
         score = ScoreModel.from_json(request.get_json())
+        score.userId = user_ident
         db.session.add(score)
         db.session.commit()
         return score.to_json(), 201
