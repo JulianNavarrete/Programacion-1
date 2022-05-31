@@ -1,7 +1,8 @@
-from flask import request, Blueprint
+from flask import request, Blueprint, jsonify
 from .. import db
 from main.models import UserModel
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
+
 
 # Blueprint to access auth methods
 auth = Blueprint('auth', __name__, url_prefix='/auth')

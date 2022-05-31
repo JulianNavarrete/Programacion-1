@@ -33,7 +33,6 @@ class Poems(Resource):
         page = 1
         per_page = 10
         poems = db.session.query(PoemModel)
-        claims = get_jwt()
         user_ident = get_jwt_identity()
         if user_ident:
             if request.get_json():
@@ -44,7 +43,7 @@ class Poems(Resource):
                     if key == 'per_page':
                         per_page = int(value)
 
-            poems = db.session.query(PoemModel).filter(PoemModel.user_id != user_ident)
+            poems = db.session.query(PoemModel).filter(PoemModel.userId != user_ident)
             poems = poems.outerjoin(PoemModel.scores).group_by(PoemModel.id).order_by(func.count(PoemModel.scores))
 
         else:
@@ -81,12 +80,10 @@ class Poems(Resource):
                             poems = poems.outerjoin(PoemModel.user).group_by(PoemModel.id).order_by(UserModel.name.desc())
 
         poems = poems.paginate(page, per_page, True, 10)
-        if 'role' in claims:
-            if claims['role'] == 'admin':
-                return jsonify({"poems": [poem.to_json_short() for poem in poems.items],
-                                "total": poems.total,
-                                "pages": poems.pages,
-                                "page": page})
+        return jsonify({"poems": [poem.to_json_short() for poem in poems.items],
+                        "total": poems.total,
+                        "pages": poems.pages,
+                        "page": page})
 
     @jwt_required
     def post(self):
