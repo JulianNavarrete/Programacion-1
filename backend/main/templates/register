@@ -1,0 +1,8 @@
+Welcome {{user.name}}!
+
+Thank you for registering in our system.
+
+With our service you can:
+- Load your poems
+- Delete your poems
+- Search for poems

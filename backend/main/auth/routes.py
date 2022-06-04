@@ -2,6 +2,7 @@ from flask import request, Blueprint, jsonify
 from .. import db
 from main.models import UserModel
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
+from main.mail.functions import send_mail
 
 
 # Blueprint to access auth methods
@@ -33,7 +34,6 @@ def login():
 # Register method
 @auth.route('/register', methods=['POST'])
 def register():
-    # Gets user
     user = UserModel.from_json(request.get_json())
     # Verify if the mail already exists in the db
     exists = db.session.query(UserModel).filter(UserModel.email == user.email).scalar() is not None
@@ -44,6 +44,8 @@ def register():
             # Add user to the db
             db.session.add(user)
             db.session.commit()
+            # Send welcome mail
+            sent = send_mail([user.email], "Welcome!", 'register', user=user)
         except Exception as error:
             db.session.rollback()
             return str(error), 409
