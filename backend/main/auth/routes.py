@@ -1,9 +1,8 @@
-from flask import request, Blueprint, jsonify
+from flask import request, Blueprint, jsonify, render_template, make_response, json
 from .. import db
 from main.models import UserModel
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
-from main.mail.functions import send_mail
-
+# from main.mail.functions import send_mail
 
 # Blueprint to access auth methods
 auth = Blueprint('auth', __name__, url_prefix='/auth')
