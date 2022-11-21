@@ -8,11 +8,12 @@
 .header{
     width: 100%;
     height: 100vh;
-    background: #e2e9f7;
 }
 
 .side-nav{
-    width: 250px;
+    min-width: 200px;
+    width: 280px;
+    max-width: 300px;
     height: 100%;
     background: #3680f2;
     position: fixed;
@@ -36,7 +37,7 @@
 }
 
 .nav-links li{
-    padding: 10px 0;
+    padding: 8px 0;
 }
 
 .nav-links li a{
@@ -44,7 +45,7 @@
     text-decoration: none;
     padding: 10px 14px;
     display: flex;
-    align-items: center;
+    align-items: first;
 }
 
 .nav-links li a i{
@@ -55,7 +56,7 @@
 .active{
     background: #fff;
     width: 100%;
-    height: 47px;
+    height: 50px;
     position: absolute;
     left: 0;
     top: 2.5%;
@@ -67,7 +68,7 @@
 
 .nav-links li:hover a{
     color: #0d74f5;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 .nav-links li:hover ~ .active{
@@ -75,23 +76,23 @@
 }
 
 .nav-links li:nth-child(1):hover ~ .active{
-    top: 2.5%;
+    top: 1.5%;
 }
 
 .nav-links li:nth-child(2):hover ~ .active{
-    top: 22.5%;
+    top: 21.5%;
 }
 
 .nav-links li:nth-child(3):hover ~ .active{
-    top: 42.5%;
+    top: 41.5%;
 }
 
 .nav-links li:nth-child(4):hover ~ .active{
-    top: 62.5%;
+    top: 61.5%;
 }
 
 .nav-links li:nth-child(5):hover ~ .active{
-    top: 82.5%;
+    top: 81.5%;
 }
 
 @media only screen and (max-width: 600px){
@@ -107,3 +108,4 @@
     .nav-links li a{
     }
 }
+
