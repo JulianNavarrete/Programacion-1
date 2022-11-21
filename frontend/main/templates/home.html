@@ -1,10 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+
 </head>
-<body>
+
+<body style="background-color: #1C1C1E;">
+    <div class="header">
+        <div class="side-nav">
+            <a href="#" class="hamb-icon">
+                <img src="../static/images/hamburger_icon.png" class="hamb-icon-size">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#"><i class="fa-solid fa-house"></i><p>Home</p></a></li>
+                <li><a href="#"><i class="fa-solid fa-upload"></i><p>Publish poem</p></a></li>
+                <li><a href="#"><i class="fa-solid fa-file-pen"></i><p>Rate poem</p></a></li>
+                <li><a href="#"><i class="fa-solid fa-user"></i><p>My profile</p></a></li>
+                <li><a href="#"><i class="fa-sharp fa-solid fa-clipboard-list"></i><p>My poems</p></a></li>
+                <div class="active"></div>
+            </ul>
+        </div>
+
+    <div class="mx-auto">
+
+        <div class="card" style="width: 23rem; margin-left: 400px;margin-top: 10%;background: #DDDDDD">
+            <div class="card-body">
+
+                {% for poem in poems %}
+
+                <h5 class="card-title">Poem title</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipiscing elit porttitor tortor consequat mauris,
+                    sociis cum hendrerit erat venenatis id semper at eleifend sed vivamus, urna per malesuada iaculis sodales
+                    rhoncus in felis nullam inceptos. Taciti sociis erat habitant fringilla semper ornare senectus in, odio sed
+                    ultricies gravida id curae ridiculus</p>
+
+                <h6 class="card-subtitle mb-2 text-muted">Author: </h6>
+                <a href="#" class="card-link">View rates</a>
+                <a href="#" class="card-link">View and rate poem</a>
+
+                {% endfor %}
+
+            </div>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+
+        </div>
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="https://kit.fontawesome.com/d26aff7c85.js" crossorigin="anonymous"></script>
+        </div>
+
 
 </body>
 </html>
