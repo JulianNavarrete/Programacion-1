@@ -73,6 +73,7 @@
 
 .nav-links li:hover ~ .active{
     display: block;
+
 }
 
 .nav-links li:nth-child(1):hover ~ .active{
