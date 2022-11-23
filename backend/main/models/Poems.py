@@ -48,6 +48,7 @@ class Poem(db.Model):
             'id': self.id,
             'title': self.title,
             'body': self.body,
+            'user': self.user.to_json_short(),
             'date': str(self.date.strftime('%Y-%m-%d %H:%M:%S')),
             'avg_score': self.get_average_score(),
         }

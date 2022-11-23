@@ -21,6 +21,18 @@
     left: 0;
     padding: 20px 30px;
 }
+.side-nav-2{
+    min-width: 200px;
+    width: 280px;
+    max-width: 300px;
+    height: 100%;
+    background: #3680f2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px 30px;
+}
+
 
 .hamb-icon{
     display: block;
@@ -35,8 +47,17 @@
     list-style: none;
     position: relative;
 }
+.nav-links-2{
+    list-style: none;
+    position: relative;
+}
+
 
 .nav-links li{
+    padding: 8px 0;
+}
+
+.nav-links-2 li{
     padding: 8px 0;
 }
 
@@ -48,7 +69,20 @@
     align-items: first;
 }
 
+.nav-links-2 li a{
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 14px;
+    display: flex;
+    align-items: first;
+}
+
 .nav-links li a i{
+    font-size: 22px;
+    margin-right: 20px;
+}
+
+.nav-links-2 li a i{
     font-size: 22px;
     margin-right: 20px;
 }
@@ -67,6 +101,12 @@
 }
 
 .nav-links li:hover a{
+    color: #0d74f5;
+    transition: 0.2s;
+}
+
+
+.nav-links-2 li:hover a{
     color: #0d74f5;
     transition: 0.2s;
 }
@@ -102,7 +142,7 @@
     top: 5%;
 }
 .nav-links-2 li:nth-child(2):hover ~ .active{
-    top: 55%;
+    top: 52%;
 }
 
 @media only screen and (max-width: 600px){

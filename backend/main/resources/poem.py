@@ -81,7 +81,7 @@ class Poems(Resource):
                         if value == 'author[desc]':
                             poems = poems.outerjoin(PoemModel.user).group_by(PoemModel.id).order_by(UserModel.name.desc())
 
-        poems = poems.paginate(page, per_page, True, 10)
+        poems = poems.paginate(page=page, per_page=per_page)
         return jsonify({"poems": [poem.to_json_short() for poem in poems.items],
                         "total": poems.total,
                         "pages": poems.pages,
@@ -94,7 +94,7 @@ class Poems(Resource):
         user = db.session.query(UserModel).get_or_404(user_ident)
         claims = get_jwt()
         if 'role' in claims and claims['role'] == 'poet':
-            if len(user.poems) == 0 or len(user.scores) >= 2:
+            if len(user.poems) >= 0:
                 poem.userId = user_ident
                 db.session.add(poem)
                 db.session.commit()
