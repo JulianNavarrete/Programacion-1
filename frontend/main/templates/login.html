@@ -6,8 +6,6 @@
 {% endblock %}
 
 
-
-
 {% block content %}
 
     <body style="background-color: #1C1C1E;">
@@ -17,7 +15,7 @@
                 <img src="../static/images/hamburger_icon.png" class="hamb-icon-size">
             </a>
             <ul class="nav-links-2">
-                <li><a href="#"><i class="fa-solid fa-house"></i>
+                <li><a href="{{ url_for('main.home') }}"><i class="fa-solid fa-house"></i>
                     <p>Home</p></a></li>
                 <li><a href="{{ url_for('main.login') }}"><i class="fa-solid fa-right-to-bracket"></i>
                     <p>Log in</p></a></li>

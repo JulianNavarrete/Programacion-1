@@ -18,8 +18,11 @@ def create_app():
     app.config['API_URL'] = os.getenv('API_URL')
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
-    from main.routes import main
+    from main.routes import main, poems, users
     app.register_blueprint(routes.main.main)
+    app.register_blueprint(routes.poems.poems)
+    app.register_blueprint(routes.users.users)
+
 
     # Return initialized app
     return app

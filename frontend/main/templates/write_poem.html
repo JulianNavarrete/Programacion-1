@@ -19,15 +19,15 @@
             <ul class="nav-links">
                 <li><a href="{{ url_for('main.home') }}"><i class="fa-solid fa-house"></i>
                     <p>Home</p></a></li>
-                <li><a href="{{ url_for('poem.create_poem') }}"><i class="fa-solid fa-upload"></i>
-                    <p>Publish poem</p></a></li>
-                <li><a href="{{ url_for('poem.create_poem') }}"><i class="fa-solid fa-file-pen"></i>
+                <li><a href="{{ url_for('poems.write_poem') }}"><i class="fa-solid fa-file-pen"></i>
+                    <p>Write poem</p></a></li>
+                <li><a href="#"><i class="fa-regular fa-star-half-stroke"></i>
                     <p>Rate poem</p></a></li>
                 <li><a href="#"><i class="fa-solid fa-user"></i>
                     <p>My profile</p></a></li>
-                <li><a href="#"><i class="fa-sharp fa-solid fa-clipboard-list"></i>
+                <li><a href="#"><i class="fa-solid fa-book"></i>
                     <p>My poems</p></a></li>
-                <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i>
+                <li><a href="{{ url_for('main.logout') }}"><i class="fa-solid fa-right-from-bracket"></i>
                     <p>Log out</p></a></li>
                 <div class="active"></div>
             </ul>

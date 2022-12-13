@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, make_response, request, current_ap
 import requests, json
 from . import functions
 
+
 main = Blueprint('main', __name__, url_prefix='/')
 
 
@@ -19,31 +20,35 @@ def home():
 
 @main.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'GET':
-        jwt = functions.get_jwt()
-        api_url = f'{current_app.config["API_URL"]}/auth/login/request.cookies.get("id")'
-        headers = functions.get_headers()
-    if (request.method == 'POST'):
-        email = request.form['email']
-        password = request.form['password']
-        print(email, password)
-        if email != None and password != None:
-            response = functions.login(email, password)
-
-            print("login", response)
-            if (response.ok):
-                response = json.loads(response.text)
-                token = response["access_token"]
-                user_id = str(response["id"])
-
-                response = make_response(redirect(url_for('main.home')))
-                response.set_cookie("access_token", token)
-                response.set_cookie("id", user_id)
-
-                return response
-        return (render_template('login.html', error="Usuario o contraseña incorrectos"))
+    jwt = functions.get_jwt()
+    if jwt:
+        return redirect(url_for('main.home'))
     else:
-        return render_template('login.html')
+        if request.method == 'GET':
+            jwt = functions.get_jwt()
+            api_url = f'{current_app.config["API_URL"]}/auth/login/request.cookies.get("id")'
+            headers = functions.get_headers()
+        if (request.method == 'POST'):
+            email = request.form['email']
+            password = request.form['password']
+            print(email, password)
+            if email != None and password != None:
+                response = functions.login(email, password)
+
+                print("login", response)
+                if (response.ok):
+                    response = json.loads(response.text)
+                    token = response["access_token"]
+                    user_id = str(response["id"])
+
+                    response = make_response(redirect(url_for('main.home')))
+                    response.set_cookie("access_token", token)
+                    response.set_cookie("id", user_id)
+
+                    return response
+            return (render_template('login.html', error="Usuario o contraseña incorrectos"))
+        else:
+            return render_template('login.html')
 
 
 @main.route("/logout")
@@ -75,3 +80,4 @@ def register():
             return render_template("register.html")
     else:
         return render_template("register.html")
+
