@@ -31,6 +31,9 @@ class Poem(db.Model):
                 scores_list.append(score.score)
             return statistics.mean(scores_list)
 
+    def get_amount_score(self):
+        return int(len(self.scores))
+
     def to_json(self):
         poem_json = {
             'id': self.id,
@@ -39,6 +42,7 @@ class Poem(db.Model):
             'date': str(self.date.strftime('%Y-%m-%d %H:%M:%S')),
             'user': self.user.to_json_short(),
             'scores': [score.to_json_short() for score in self.scores],
+            'amt_scores': self.get_amount_score(),
             'avg_score': self.get_average_score(),
         }
         return poem_json

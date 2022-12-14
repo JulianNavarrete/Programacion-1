@@ -7,7 +7,6 @@
 {% endblock %}
 
 
-
 {% block content %}
 
     <body style="background-color: #1C1C1E;">
@@ -34,6 +33,7 @@
         </div>
 
         <form action="{{ url_for('poems.write_poem') }}" method="POST">
+            <div style="margin-left: 200px">
             <div class="mx-auto" style="width: 60%;margin-top: 10%;">
                 <div class="form-group mt-4">
                     <label for="text">Title</label>
@@ -67,6 +67,7 @@
                     </button>
                 </div>
             </div>
+        </div>
         </form>
     </body>
 

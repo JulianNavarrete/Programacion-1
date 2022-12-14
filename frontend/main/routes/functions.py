@@ -37,3 +37,12 @@ def get_headers(without_token=False, jwt=None):
         return {"Content-Type": "application/json", "Authorization": f"Bearer {jwt}"}
     else:
         return {"Content-Type": "application/json"}
+
+
+def add_score(user_id, poem_id, score, comment):
+    jwt = request.cookies.get('access_token')
+    api_url = f'{current_app.config["API_URL"]}scores'
+    data = {"userId": user_id, "poemId": poem_id, "score": score, "comment": comment}
+    headers = {"Content-Type": "application/json", "Authorization" : f"Bearer {jwt}"}
+    return requests.post(api_url, json=data, headers=headers)
+

@@ -23,13 +23,16 @@ def view():
 '''
 
 
-@poems.route('/write-poem', methods=['POST'])
+@poems.route('/write-poem', methods=['GET', 'POST'])
 def write_poem():
+    print("Llega acá 0")
     jwt = functions.get_jwt()
+    print("Llega acá 1")
     if jwt:
         if request.method == 'POST':
             title = request.form['title']
             body = request.form['body']
+            print("Llega acá 2")
             # print(title)
             # print(body)
             id = request.cookies.get('id')
@@ -49,7 +52,7 @@ def write_poem():
         else:
             return render_template('write_poem.html', jwt=jwt)
     else:
-        # flash('You must be logged in to do that.', 'warning')
+        flash('You must be logged in to do that.', 'warning')
         return redirect(url_for('main.login'))
 
 
@@ -64,7 +67,10 @@ def view_poem(id):
         poem = json.loads(response.text)
         scores = functions.get_scores_by_poem_id(id)
         scores = json.loads(scores.text)
-    return render_template('poem_details.html', poem=poem, jwt=jwt, userId=int(userId), scores=scores)
+        print("Hola")
+        return render_template('poem_details.html', poem=poem, jwt=jwt, userId=int(userId), scores=scores)
+    else:
+        return render_template('main.home')
 
 
 @poems.route('/poem/<id>/rate', methods=['GET', 'POST'])
@@ -76,7 +82,7 @@ def rate_poem(id):
             headers = {"Content-Type": "application/json", "Authorization": f"Bearer {jwt}"}
             response = requests.get(api_url, headers=headers)
             poem = json.loads(response.text)
-            return render_template('score_create.html', poem=poem)
+            return render_template('rate_poem.html', poem=poem)
 
         if request.method == 'POST':
             api_url = f'{current_app.config["API_URL"]}scores'
@@ -87,8 +93,9 @@ def rate_poem(id):
             response = functions.add_mark(user_id=user_id, poem_id=id, score=score, comment=commentary)
             if response.ok:
                 response = json.loads(response.text)
-                return redirect(url_for('main.user_main'))
-            print("ESTE ES EL RESPONSE", response)
-            return redirect(url_for('main.user_main'))
+                return redirect(url_for('main.home'))
+                
+            return redirect(url_for('main.home'))
     else:
         return redirect(url_for('main.login'))
+

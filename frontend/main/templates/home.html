@@ -48,8 +48,8 @@
                             <h3 class="card-title">{{ poem.title }}</h3>
                             <p class="card-text">{{ poem.body }}</p>
                             <h6 class="card-subtitle mb-2 text-muted">Author: {{ poem.user.name }}</h6>
-                            <a href="{{ url_for('poems.view_poem') }}" class="card-link">View rates</a> {# poem details #}
-                            <a href="#" class="card-link">Rate poem</a>
+                            <a href="{{url_for('poems.view_poem', id=poem.id)}}" class="card-link">View poem</a> 
+                            <a href="{{url_for('poems.rate_poem', id=poem.id)}}" class="card-link">Rate poem</a>
                             <a href="#" class="card-link">Author's profile</a>
                         </div>
                     </div>

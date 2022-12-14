@@ -1,57 +1,87 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    {{ super() }}
-    <title>Home</title>
+{{ super() }}
+<title>Rate poem</title>
 {% endblock %}
 
 {% block content %}
-    <body style="background-color: #1C1C1E;">
-    <div class="mx-auto" style="width: 60%;margin-top: 10%;">
-        <fieldset disabled>
-            <div>
-                <label for="disabledTextInput" class="form-label, normal-white-text">Title</label>
-                <input class="form-control" type="text" placeholder="Poem title" aria-label="default input example">
-            </div>
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label, normal-white-text" style="margin-top: 12px">Content</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                          placeholder="Lorem ipsum dolor..."></textarea>
-            </div>
-            <div class="row">
-                <div class="col-xs-6">
-                    <label for="disabledTextInput" class="form-label, normal-white-text" style="width: 35%">Creation
-                        date</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="Creation date"
-                           style="width: 75%">
-                </div>
-                <div class="col-xs-6">
-                    <label for="disabledTextInput" class="form-label, normal-white-text"
-                           style="width: 35%">Author</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="Name of the Author"
-                           style="width: 75%"/>
-                </div>
-            </div>
-        </fieldset>
-        <div class="row">
-            <div class="col-xs-3">
-                <label for="disabledTextInput" class="form-label, normal-white-text" style="margin-top: 20px">Score
-                    (from 1 to 10)</label>
-                <input type="text" id="disabledTextInput" class="form-control" placeholder="Score" style="width: 45%">
-            </div>
-            <div class="col-xs-9">
-                <label for="disabledTextInput" class="form-label, normal-white-text"
-                       style="width: 100%;margin-top: 20px">Comment (optional)</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                          placeholder="Lorem ipsum dolor..."></textarea>
-            </div>
 
-            <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-3" style="margin-top: 20px;background-color: #0d6efd">
-                    Submit rate
-                </button>
-            </div>
+<body style="background-color: #1C1C1E;">
+    <div class="header">
+        <div class="side-nav">
+            <a href="#" class="hamb-icon">
+                <img src="../static/images/hamburger_icon.png" class="hamb-icon-size">
+            </a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('main.home') }}"><i class="fa-solid fa-house"></i>
+                        <p>Home</p>
+                    </a></li>
+                <li><a href="{{ url_for('poems.write_poem') }}"><i class="fa-solid fa-file-pen"></i>
+                        <p>Write poem</p>
+                    </a></li>
+                <li><a href="#"><i class="fa-solid fa-user"></i>
+                        <p>My profile</p>
+                    </a></li>
+                <li><a href="#"><i class="fa-solid fa-book"></i>
+                        <p>My poems</p>
+                    </a></li>
+                <li><a href="{{ url_for('main.logout') }}"><i class="fa-solid fa-right-from-bracket"></i>
+                        <p>Log out</p>
+                    </a></li>
+                <div class="active"></div>
+            </ul>
         </div>
-    </body>
+
+        <div class="mx-auto" style="width: 60%;margin-top: 10%;">
+            <fieldset disabled>
+                <div>
+                    <label for="disabledTextInput" class="form-label, normal-white-text">Title</label>
+                    <input class="form-control" type="text" placeholder="Poem title" aria-label="default input example">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label, normal-white-text"
+                        style="margin-top: 12px">Content</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                        placeholder="Lorem ipsum dolor..."></textarea>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <label for="disabledTextInput" class="form-label, normal-white-text" style="width: 35%">Creation
+                            date</label>
+                        <input type="text" id="disabledTextInput" class="form-control" placeholder="Creation date"
+                            style="width: 75%">
+                    </div>
+                    <div class="col-xs-6">
+                        <label for="disabledTextInput" class="form-label, normal-white-text"
+                            style="width: 35%">Author</label>
+                        <input type="text" id="disabledTextInput" class="form-control" placeholder="Name of the Author"
+                            style="width: 75%" />
+                    </div>
+                </div>
+            </fieldset>
+
+            <form action="{{ url_for('poems.rate_poem', id=poem.id) }}" method="POST">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <label for="text">Score (from 1 to 10)</label>
+                        <input type="text" class="form-control" placeholder="Score" style="width: 45%" name="score">
+                    </div>
+                    <div class="col-xs-9">
+                        <label for="text" style="width: 100%;margin-top: 20px">Comment</label>
+                        <textarea class="form-control" name="comment" rows="3"
+                            placeholder="Me parece muy bueno porque..."></textarea>
+                    </div>
+
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3"
+                            style="margin-top: 20px;background-color: #0d6efd">
+                            Submit rate
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+</body>
 
 {% endblock %}
