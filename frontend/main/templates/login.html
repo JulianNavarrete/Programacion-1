@@ -23,35 +23,36 @@
             </ul>
         </div>
 
-        <div class="mx-auto" style="width: 600px;margin-top: 10%;">
-            <div class="px-4 py-3">
-                <form action="{{ url_for('main.login') }}" method="POST">
-                    <div>
-                        <div class="mb-3">
-                            <label for="exampleDropdownFormEmail1" class="form-label"
-                                   style="-webkit-text-fill-color: #e2e9f7">Email
-                                address</label>
-                            <input type="email" name="email" class="form-control" id="exampleDropdownFormEmail1"
-                                   placeholder="email@example.com">
-                        </div>
+        <div style="margin-left: 200px">
+            <div class="mx-auto" style="margin-right: 25%;width: 50%;max-width: 600px;margin-top: 10%">
+                <div class="px-4 py-3">
+                    <form action="{{ url_for('main.login') }}" method="POST">
+                        <div>
+                            <div class="mb-3">
+                                <label for="exampleDropdownFormEmail1" class="form-label"
+                                       style="-webkit-text-fill-color: #e2e9f7">Email address</label>
+                                <input type="email" name="email" class="form-control" id="exampleDropdownFormEmail1"
+                                       placeholder="email@example.com">
+                            </div>
 
-                        <label for="inputPassword5" class="form-label"
-                               style="-webkit-text-fill-color: #e2e9f7">Password</label>
-                        <input type="password" name="password" class="form-control" id="exampleDropdownFormPassword1"
-                               placeholder="Password">
-                    </div>
-                    <div class="mb-3">
-                        <button type="submit" class="btn btn-primary" style="margin-top: 8px">Sign in</button>
-                    </div>
-                </form>
+                            <label for="inputPassword5" class="form-label" style="-webkit-text-fill-color: #e2e9f7">
+                                Password</label>
+                            <input type="password" name="password" class="form-control"
+                                   id="exampleDropdownFormPassword1"
+                                   placeholder="Password">
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary" style="margin-top: 8px">Sign in</button>
+                        </div>
+                    </form>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" style="-webkit-text-fill-color: #e2e9f7; margin-top: 20px">New
+                        around here? Sign up</a>
+                    <a class="dropdown-item" href="#" style="-webkit-text-fill-color: #e2e9f7; margin-top: 20px">Forgot
+                        password?</a>
+                </div>
             </div>
         </div>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#" style="-webkit-text-fill-color: #e2e9f7; margin-top: 20px">New around here?
-            Sign up</a>
-        <a class="dropdown-item" href="#" style="-webkit-text-fill-color: #e2e9f7; margin-top: 20px">Forgot
-            password?</a>
     </div>
-
     </body>
 {% endblock %}

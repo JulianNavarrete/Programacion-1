@@ -33,41 +33,41 @@
             </ul>
         </div>
 
-
-        <div class="mx-auto" style="width: 60%;margin-top: 10%;">
-            <div>
-                <label for="disabledTextInput" class="form-label, normal-white-text">Title</label>
-                <input class="form-control" type="text" placeholder="Poem title" aria-label="default input example">
-            </div>
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label, normal-white-text"
-                       style="margin-top: 12px">Content</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                          placeholder="Lorem ipsum dolor..."></textarea>
-            </div>
-            <fieldset disabled>
-                <div class="row">
-                    <div class="col-xs-6">
-                        <label for="disabledTextInput" class="form-label, normal-white-text"
-                               style="width: 35%">Date</label>
-                        <input type="text" id="disabledTextInput" class="form-control" placeholder="Today's date"
-                               style="width: 75%">
-                    </div>
-                    <div class="col-xs-6">
-                        <label for="disabledTextInput" class="form-label, normal-white-text"
-                               style="width: 35%">Author</label>
-                        <input type="text" id="disabledTextInput" class="form-control" placeholder="You"
-                               style="width: 75%"/>
-                    </div>
+        <form action="{{ url_for('poems.write_poem') }}" method="POST">
+            <div class="mx-auto" style="width: 60%;margin-top: 10%;">
+                <div class="form-group mt-4">
+                    <label for="text">Title</label>
+                    <input class="form-control" type="text" placeholder="Poem title" name="title">
                 </div>
-            </fieldset>
-            <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-3" style="margin-top: 20px;background-color: #0d6efd">
-                    Create
-                    poem
-                </button>
+                <div class="form-group mt-4">
+                    <label for="text" style="margin-top: 12px">Content</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                              placeholder="Lorem ipsum dolor..." name="body"></textarea>
+                </div>
+                <fieldset disabled>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <label for="disabledTextInput" class="form-label, normal-white-text"
+                                   style="width: 35%">Date</label>
+                            <input type="text" id="disabledTextInput" class="form-control" placeholder="Today's date"
+                                   style="width: 75%">
+                        </div>
+                        <div class="col-xs-6">
+                            <label for="disabledTextInput" class="form-label, normal-white-text"
+                                   style="width: 35%">Author</label>
+                            <input type="text" id="disabledTextInput" class="form-control" placeholder="You"
+                                   style="width: 75%"/>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3"
+                            style="margin-top: 20px;background-color: #0d6efd">
+                        Create poem
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
     </body>
 
 {% endblock %}

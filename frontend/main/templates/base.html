@@ -19,6 +19,33 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
 
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show d-flex"
+                                 role="alert">
+                                <div class="col-md-6 d-flex">
+                                    {{ message }}
+                                </div>
+                                <div class="col-md-6 d-flex justify-content-end" role="alert">
+                                    <button type="button" class="btn btn-close" data-dismiss="alert"
+                                            aria-label="Close">
+                                    </button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
 {% block content %}
 {% endblock %}
 

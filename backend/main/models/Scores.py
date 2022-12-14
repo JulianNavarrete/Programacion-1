@@ -26,7 +26,7 @@ class Score(db.Model):
             'score': self.score,
             'comment': self.comment,
             'user': self.user.to_json_short(),
-            'poem': self.poem.to_json_short()
+            'poem': self.poem.to_json_short(),
         }
         return score_json
 
