@@ -76,29 +76,33 @@
                         <div class="col-xs-6">
                         </div>
             </fieldset>
-            <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-3"
-                    style="margin-top: 20px;background-color: #0d6efd">Rate
-                    this poem
-                </button>
-            </div>
-            <!-- <div>
-                <tbody>
-                    <div class="row row-cols-4 row-cols-lg-3 g-4 g-lg-3" style="margin-left: 320px">
-                        {% for poem in poems %}
-                        <div class="mx-auto, row, col-xs-4">
-                            <div class="card" style="width: 90%;margin-top: 10%;background: #DDDDDD">
-                                <div class="card-body">
-                                    <h3 class="card-title">{{ poem.title }}</h3>
-                                    <p class="card-text">{{ poem.body }}</p>
-                                    <h6 class="card-subtitle mb-2 text-muted">Author: {{ poem.user.name }}</h6>
-                                </div>
+            <form method="GET" action="{{url_for('poems.rate_poem', id=poem.id)}}">
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3"
+                        style="margin-top: 20px;background-color: #0d6efd">Rate this poem</button>
+                </div>
+            </form>
+
+        </div>
+            <tbody>
+                <div class="row row-cols-4 row-cols-lg-3 g-4 g-lg-3" style="margin-left: 320px">
+                    {% for poem in poems %}
+                    <div class="mx-auto, row, col-xs-4">
+                        <div class="card" style="width: 90%;margin-top: 10%;background: #DDDDDD">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ poem.title }}</h3>
+                                <p class="card-text">{{ poem.body }}</p>
+                                <h6 class="card-subtitle mb-2 text-muted">Author: {{ poem.user.name }}</h6>
+                                <a href="{{url_for('poems.view_poem', id=poem.id)}}" class="card-link">View poem</a>
+                                <a href="{{url_for('poems.rate_poem', id=poem.id)}}" class="card-link">Rate poem</a>
+                                <a href="#" class="card-link">Author's profile</a>
                             </div>
                         </div>
-                        {% endfor %}
                     </div>
-                </tbody>
-            </div> -->
-        </div>
+                    {% endfor %}
+                </div>
+            </tbody>
+        
+    </div>
 </body>
 {% endblock %}

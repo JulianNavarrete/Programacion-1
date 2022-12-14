@@ -46,3 +46,10 @@ def add_score(user_id, poem_id, score, comment):
     headers = {"Content-Type": "application/json", "Authorization" : f"Bearer {jwt}"}
     return requests.post(api_url, json=data, headers=headers)
 
+
+def get_user_info(id):
+    api_url = f'{current_app.config["API_URL"]}/user/{id}'
+    headers = get_headers()
+
+    return requests.get(api_url, headers=headers)
+

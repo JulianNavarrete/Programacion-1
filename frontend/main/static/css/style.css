@@ -120,17 +120,15 @@
     top: 1.5%;
 }
 .nav-links li:nth-child(2):hover ~ .active{
-    top: 21.5%;
+    top: 26.5%;
 }
 .nav-links li:nth-child(3):hover ~ .active{
-    top: 41.5%;
+    top: 51.5%;
 }
 .nav-links li:nth-child(4):hover ~ .active{
-    top: 61.5%;
+    top: 76.5%;
 }
-.nav-links li:nth-child(5):hover ~ .active{
-    top: 81.5%;
-}
+
 
 
 .nav-links-2 li:hover ~ .active{

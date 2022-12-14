@@ -11,8 +11,7 @@
     <div class="header">
         <div class="side-nav">
             <a href="#" class="hamb-icon">
-                <img src="../static/images/hamburger_icon.png" class="hamb-icon-size">
-            </a>
+                <img src="../static/images/hamburger_icon.png" class="hamb-icon-size"></a>
             <ul class="nav-links">
                 <li><a href="{{ url_for('main.home') }}"><i class="fa-solid fa-house"></i>
                         <p>Home</p>
@@ -64,7 +63,7 @@
             <form action="{{ url_for('poems.rate_poem', id=poem.id) }}" method="POST">
                 <div class="row">
                     <div class="col-xs-3">
-                        <label for="text">Score (from 1 to 10)</label>
+                        <label for="text" style="margin-top: 20px">Score (from 1 to 10)</label>
                         <input type="text" class="form-control" placeholder="Score" style="width: 45%" name="score">
                     </div>
                     <div class="col-xs-9">

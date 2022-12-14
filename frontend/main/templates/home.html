@@ -1,63 +1,65 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    {{ super() }}
-    <title>Home</title>
+{{ super() }}
+<title>Home</title>
 {% endblock %}
 
 {% block content %}
-    <body style="background-color: #1C1C1E;">
+
+<body style="background-color: #1C1C1E;">
     <div class="header">
         <div class="side-nav">
             <a href="#" class="hamb-icon">
                 <img src="../static/images/hamburger_icon.png" class="hamb-icon-size">
             </a>
             {% if request.cookies.get('access_token') %}
-                <ul class="nav-links">
-                    <li><a href="{{ url_for('main.home') }}"><i class="fa-solid fa-house"></i>
-                        <p>Home</p></a></li>
-                    <li><a href="{{ url_for('poems.write_poem') }}"><i class="fa-solid fa-file-pen"></i>
-                        <p>Write poem</p></a></li>
-                    <li><a href="#"><i class="fa-solid fa-user"></i>
-                        <p>My profile</p></a></li>
-                    <li><a href="#"><i class="fa-solid fa-book"></i>
-                        <p>My poems</p></a></li>
-                    <li><a href="{{ url_for('main.logout') }}"><i class="fa-solid fa-right-from-bracket"></i>
-                        <p>Log out</p></a></li>
-                    <div class="active"></div>
-                </ul>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('main.home') }}"><i class="fa-solid fa-house"></i>
+                        <p>Home</p>
+                    </a></li>
+                <li><a href="{{ url_for('poems.write_poem') }}"><i class="fa-solid fa-file-pen"></i>
+                        <p>Write poem</p>
+                    </a></li>
+                <li><a href="{{ url_for('users.my_profile') }}"><i class="fa-solid fa-user"></i>
+                        <p>My profile</p>
+                    </a></li>
+                <li><a href="{{ url_for('main.logout') }}"><i class="fa-solid fa-right-from-bracket"></i>
+                        <p>Log out</p>
+                    </a></li>
+                <div class="active"></div>
+            </ul>
             {% else %}
-                <ul class="nav-links-2">
-                    <li><a href="#"><i class="fa-solid fa-house"></i>
-                        <p>Home</p></a></li>
-                    <li><a href="{{ url_for('main.login') }}"><i class="fa-solid fa-right-to-bracket"></i>
-                        <p>Log in</p></a></li>
-                    <div class="active"></div>
-                </ul>
+            <ul class="nav-links-2">
+                <li><a href="#"><i class="fa-solid fa-house"></i>
+                        <p>Home</p>
+                    </a></li>
+                <li><a href="{{ url_for('main.login') }}"><i class="fa-solid fa-right-to-bracket"></i>
+                        <p>Log in</p>
+                    </a></li>
+                <div class="active"></div>
+            </ul>
             {% endif %}
             </ul>
         </div>
 
         <tbody>
-        <div class="row row-cols-4 row-cols-lg-3 g-4 g-lg-3" style="margin-left: 320px">
-            {% for poem in poems %}
+            <div class="row row-cols-4 row-cols-lg-3 g-4 g-lg-3" style="margin-left: 320px">
+                {% for poem in poems %}
                 <div class="mx-auto, row, col-xs-4">
-                    <div class="card"
-                         style="width: 90%;margin-top: 10%;background: #DDDDDD">
+                    <div class="card" style="width: 90%;margin-top: 10%;background: #DDDDDD">
                         <div class="card-body">
                             <h3 class="card-title">{{ poem.title }}</h3>
                             <p class="card-text">{{ poem.body }}</p>
                             <h6 class="card-subtitle mb-2 text-muted">Author: {{ poem.user.name }}</h6>
-                            <a href="{{url_for('poems.view_poem', id=poem.id)}}" class="card-link">View poem</a> 
+                            <a href="{{url_for('poems.view_poem', id=poem.id)}}" class="card-link">View poem</a>
                             <a href="{{url_for('poems.rate_poem', id=poem.id)}}" class="card-link">Rate poem</a>
-                            <a href="#" class="card-link">Author's profile</a>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
-        </div>
+                {% endfor %}
+            </div>
         </tbody>
-
-    </body>
+    </div>
+</body>
 {% endblock %}
-

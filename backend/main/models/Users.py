@@ -50,6 +50,8 @@ class User(db.Model):
             'name': self.name,
             'email': self.email,
             'role': self.role,
+            'poem_amount': len(self.poems),
+            'score_amount': len(self.scores)
         }
         return user_json
 

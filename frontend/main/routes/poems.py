@@ -25,14 +25,14 @@ def view():
 
 @poems.route('/write-poem', methods=['GET', 'POST'])
 def write_poem():
-    print("Llega acá 0")
+    # print("Llega acá 0")
     jwt = functions.get_jwt()
-    print("Llega acá 1")
+    # print("Llega acá 1")
     if jwt:
         if request.method == 'POST':
             title = request.form['title']
             body = request.form['body']
-            print("Llega acá 2")
+            # print("Llega acá 2")
             # print(title)
             # print(body)
             id = request.cookies.get('id')
@@ -70,7 +70,7 @@ def view_poem(id):
         print("Hola")
         return render_template('poem_details.html', poem=poem, jwt=jwt, userId=int(userId), scores=scores)
     else:
-        return render_template('main.home')
+        return redirect(url_for('main.login'))
 
 
 @poems.route('/poem/<id>/rate', methods=['GET', 'POST'])
@@ -90,7 +90,7 @@ def rate_poem(id):
             user_id = request.cookies.get('id')
             score = request.form['score']
             commentary = request.form['comment']
-            response = functions.add_mark(user_id=user_id, poem_id=id, score=score, comment=commentary)
+            response = functions.add_score(user_id=user_id, poem_id=id, score=score, comment=commentary)
             if response.ok:
                 response = json.loads(response.text)
                 return redirect(url_for('main.home'))
