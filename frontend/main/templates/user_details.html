@@ -20,11 +20,8 @@
                 <li><a href="{{ url_for('poems.write_poem') }}"><i class="fa-solid fa-file-pen"></i>
                         <p>Write poem</p>
                     </a></li>
-                <li><a href="#"><i class="fa-solid fa-user"></i>
+                <li><a href="{{ url_for('users.my_profile') }}"><i class="fa-solid fa-user"></i>
                         <p>My profile</p>
-                    </a></li>
-                <li><a href="#"><i class="fa-solid fa-book"></i>
-                        <p>My poems</p>
                     </a></li>
                 <li><a href="{{ url_for('main.logout') }}"><i class="fa-solid fa-right-from-bracket"></i>
                         <p>Log out</p>
@@ -65,7 +62,8 @@
                     </div>
                 </fieldset>
 
-                <a type="button" class="btn btn-info" href="{{url_for('users.modify_profile')}}">Change information</a>
+                <a type="button" style="margin-top: 15px;background-color: blue;" class="btn btn-info"
+                    href="{{url_for('users.modify_profile')}}">Change information</a>
 
             </form>
             <div class="dropdown-divider"></div>

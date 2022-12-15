@@ -135,10 +135,13 @@
     display: block;
 }
 .nav-links-2 li:nth-child(1):hover ~ .active{
-    top: 5%;
+    top: 2%;
 }
 .nav-links-2 li:nth-child(2):hover ~ .active{
-    top: 52%;
+    top: 35%;
+}
+.nav-links-2 li:nth-child(3):hover ~ .active{
+    top: 69%;
 }
 
 @media only screen and (max-width: 600px){

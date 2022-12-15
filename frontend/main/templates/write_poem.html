@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    {{ super() }}
-    <title>Create poem</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+{{ super() }}
+<title>Create poem</title>
+<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
 {% endblock %}
 
 
 {% block content %}
 
-    <body style="background-color: #1C1C1E;">
+<body style="background-color: #1C1C1E;">
     <div class="header">
         <div class="side-nav">
             <a href="#" class="hamb-icon">
@@ -17,58 +17,58 @@
             </a>
             <ul class="nav-links">
                 <li><a href="{{ url_for('main.home') }}"><i class="fa-solid fa-house"></i>
-                    <p>Home</p></a></li>
+                        <p>Home</p>
+                    </a></li>
                 <li><a href="{{ url_for('poems.write_poem') }}"><i class="fa-solid fa-file-pen"></i>
-                    <p>Write poem</p></a></li>
-                <li><a href="#"><i class="fa-regular fa-star-half-stroke"></i>
-                    <p>Rate poem</p></a></li>
-                <li><a href="#"><i class="fa-solid fa-user"></i>
-                    <p>My profile</p></a></li>
-                <li><a href="#"><i class="fa-solid fa-book"></i>
-                    <p>My poems</p></a></li>
+                        <p>Write poem</p>
+                    </a></li>
+                <li><a href="{{ url_for('users.my_profile') }}"><i class="fa-solid fa-user"></i>
+                        <p>My profile</p>
+                    </a></li>
                 <li><a href="{{ url_for('main.logout') }}"><i class="fa-solid fa-right-from-bracket"></i>
-                    <p>Log out</p></a></li>
+                        <p>Log out</p>
+                    </a></li>
                 <div class="active"></div>
             </ul>
         </div>
 
         <form action="{{ url_for('poems.write_poem') }}" method="POST">
             <div style="margin-left: 200px">
-            <div class="mx-auto" style="width: 60%;margin-top: 10%;">
-                <div class="form-group mt-4">
-                    <label for="text">Title</label>
-                    <input class="form-control" type="text" placeholder="Poem title" name="title">
-                </div>
-                <div class="form-group mt-4">
-                    <label for="text" style="margin-top: 12px">Content</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                              placeholder="Lorem ipsum dolor..." name="body"></textarea>
-                </div>
-                <fieldset disabled>
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <label for="disabledTextInput" class="form-label, normal-white-text"
-                                   style="width: 35%">Date</label>
-                            <input type="text" id="disabledTextInput" class="form-control" placeholder="Today's date"
-                                   style="width: 75%">
-                        </div>
-                        <div class="col-xs-6">
-                            <label for="disabledTextInput" class="form-label, normal-white-text"
-                                   style="width: 35%">Author</label>
-                            <input type="text" id="disabledTextInput" class="form-control" placeholder="You"
-                                   style="width: 75%"/>
-                        </div>
+                <div class="mx-auto" style="width: 60%;margin-top: 10%;">
+                    <div class="form-group mt-4">
+                        <label for="text">Title</label>
+                        <input class="form-control" type="text" placeholder="Poem title" name="title">
                     </div>
-                </fieldset>
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-primary mb-3"
+                    <div class="form-group mt-4">
+                        <label for="text" style="margin-top: 12px">Content</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                            placeholder="Lorem ipsum dolor..." name="body"></textarea>
+                    </div>
+                    <fieldset disabled>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <label for="disabledTextInput" class="form-label, normal-white-text"
+                                    style="width: 35%">Date</label>
+                                <input type="text" id="disabledTextInput" class="form-control"
+                                    placeholder="Today's date" style="width: 75%">
+                            </div>
+                            <div class="col-xs-6">
+                                <label for="disabledTextInput" class="form-label, normal-white-text"
+                                    style="width: 35%">Author</label>
+                                <input type="text" id="disabledTextInput" class="form-control" placeholder="You"
+                                    style="width: 75%" />
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3"
                             style="margin-top: 20px;background-color: #0d6efd">
-                        Create poem
-                    </button>
+                            Create poem
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
         </form>
-    </body>
+</body>
 
 {% endblock %}

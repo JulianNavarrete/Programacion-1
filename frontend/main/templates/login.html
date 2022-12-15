@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    {{ super() }}
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
 {% endblock %}
 
 
 {% block content %}
 
-    <body style="background-color: #1C1C1E;">
+<body style="background-color: #1C1C1E;">
     <div class="header">
         <div class="side-nav">
             <a href="#" class="hamb-icon">
@@ -16,9 +16,15 @@
             </a>
             <ul class="nav-links-2">
                 <li><a href="{{ url_for('main.home') }}"><i class="fa-solid fa-house"></i>
-                    <p>Home</p></a></li>
+                        <p>Home</p>
+                    </a></li>
                 <li><a href="{{ url_for('main.login') }}"><i class="fa-solid fa-right-to-bracket"></i>
-                    <p>Log in</p></a></li>
+                        <p>Log in</p>
+                    </a></li>
+                <li><a href="{{ url_for('main.register') }}"><i class="fa-solid fa-right-to-bracket"></i>
+                        <p>Register</p>
+                    </a></li>
+                <div class="active"></div>
                 <div class="active"></div>
             </ul>
         </div>
@@ -30,23 +36,22 @@
                         <div>
                             <div class="mb-3">
                                 <label for="exampleDropdownFormEmail1" class="form-label"
-                                       style="-webkit-text-fill-color: #e2e9f7">Email address</label>
+                                    style="-webkit-text-fill-color: #e2e9f7">Email address</label>
                                 <input type="email" name="email" class="form-control" id="exampleDropdownFormEmail1"
-                                       placeholder="email@example.com">
+                                    placeholder="email@example.com">
                             </div>
 
                             <label for="inputPassword5" class="form-label" style="-webkit-text-fill-color: #e2e9f7">
                                 Password</label>
                             <input type="password" name="password" class="form-control"
-                                   id="exampleDropdownFormPassword1"
-                                   placeholder="Password">
+                                id="exampleDropdownFormPassword1" placeholder="Password">
                         </div>
                         <div class="mb-3">
                             <button type="submit" class="btn btn-primary" style="margin-top: 8px">Sign in</button>
                         </div>
                     </form>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" style="-webkit-text-fill-color: #e2e9f7; margin-top: 20px">New
+                    <a class="dropdown-item" href="{{ url_for('main.register') }}" style="-webkit-text-fill-color: #e2e9f7; margin-top: 20px">New
                         around here? Sign up</a>
                     <a class="dropdown-item" href="#" style="-webkit-text-fill-color: #e2e9f7; margin-top: 20px">Forgot
                         password?</a>
@@ -54,5 +59,5 @@
             </div>
         </div>
     </div>
-    </body>
+</body>
 {% endblock %}

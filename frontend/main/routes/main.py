@@ -63,10 +63,10 @@ def register():
         email = request.form.get("email")
         password = request.form.get("password")
         role = 'poet'
+        print(name, email, password, role)
         if name != "" and email != "" and password != "":
             api_url = f'{current_app.config["API_URL"]}auth/register'
-            print(api_url)
-            data = {"name": name, "email": email, "password": password, "rol": role}
+            data = {"name": name, "email": email, "password": password, "role": role}
             headers = {"Content-Type": "application/json"}
             response = requests.post(api_url, json=data, headers=headers)
             if response.ok:

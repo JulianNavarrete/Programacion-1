@@ -29,15 +29,12 @@ def modify_profile():
         if request.method == 'GET':
             api_url = f'{current_app.config["API_URL"]}/user/{user_id}'
             headers = {'Content-type': 'application/json', 'Authorization': f"Bearer {jwt}"}
-            response = requests.get(api_url, headers=headers)
-            
-            print(response)
+            response = requests.get(api_url, headers=headers)            
             user = json.loads(response.text)
-            print("B")
+
             return render_template('edit_user.html', user=user)
             
         if request.method == 'POST':
-            print("Holaaaa")
             name = request.form['Name']
             print("name", name)
             password = request.form['Password']

@@ -36,7 +36,7 @@ class Users(Resource):
     @admin_required
     def get(self):
         page = 1
-        per_page = 10
+        per_page = 15
         users = db.session.query(UserModel)
         if request.get_json():
             filters = request.get_json().items()
