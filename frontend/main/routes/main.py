@@ -11,9 +11,10 @@ def home():
     api_url = f'{current_app.config["API_URL"]}/poems'
     headers = {"Content-Type": "application/json"}
     data = {}
+    print("asdasdasd", api_url, headers, data)
     response = requests.get(api_url, headers=headers, json=data)
     poems = json.loads(response.text)
-    print(poems)
+    # print(poems)
 
     return render_template('home.html', poems=poems['poems'])
 
@@ -24,10 +25,10 @@ def login():
     if jwt:
         return redirect(url_for('main.home'))
     else:
-        if request.method == 'GET':
-            jwt = functions.get_jwt()
-            api_url = f'{current_app.config["API_URL"]}/auth/login/request.cookies.get("id")'
-            headers = functions.get_headers()
+        # if request.method == 'GET':
+            # jwt = functions.get_jwt()
+            # api_url = f'{current_app.config["API_URL"]}/auth/login/request.cookies.get("id")'
+            # headers = functions.get_headers()
         if (request.method == 'POST'):
             email = request.form['email']
             password = request.form['password']
@@ -63,12 +64,14 @@ def register():
         email = request.form.get("email")
         password = request.form.get("password")
         role = 'poet'
-        print(name, email, password, role)
+        # print(name, email, password, role)
         if name != "" and email != "" and password != "":
-            api_url = f'{current_app.config["API_URL"]}auth/register'
-            data = {"name": name, "email": email, "password": password, "role": role}
+            data = {"name": name,"email": email, "password":password, "role":role}
             headers = {"Content-Type": "application/json"}
-            response = requests.post(api_url, json=data, headers=headers)
+            # print(headers)
+            response = requests.post(f'{current_app.config["API_URL"]}/auth/register', json = data, headers = headers)
+            print("response: ", response)
+            # response = requests.post(api_url, json=data, headers=headers)
             if response.ok:
                 return redirect(url_for("main.login"))
             else:
