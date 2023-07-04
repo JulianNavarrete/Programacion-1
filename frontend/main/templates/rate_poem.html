@@ -11,7 +11,8 @@
     <div class="header">
         <div class="side-nav">
             <a href="#" class="hamb-icon">
-                <img src="../static/images/hamburger_icon.png" class="hamb-icon-size"></a>
+                <img src="../static/images/hamburger_icon.png" class="hamb-icon-size">
+            </a>
             <ul class="nav-links">
                 <li><a href="{{ url_for('main.home') }}"><i class="fa-solid fa-house"></i>
                         <p>Home</p>
@@ -33,25 +34,25 @@
             <fieldset disabled>
                 <div>
                     <label for="disabledTextInput" class="form-label, normal-white-text">Title</label>
-                    <input class="form-control" type="text" placeholder="Poem title" aria-label="default input example">
+                    <input class="form-control" type="text" placeholder="{{poem.title}}" aria-label="default input example">
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label, normal-white-text"
                         style="margin-top: 12px">Content</label>
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                        placeholder="Lorem ipsum dolor..."></textarea>
+                        placeholder="{{poem.body}}"></textarea>
                 </div>
                 <div class="row">
                     <div class="col-xs-6">
                         <label for="disabledTextInput" class="form-label, normal-white-text" style="width: 35%">Creation
                             date</label>
-                        <input type="text" id="disabledTextInput" class="form-control" placeholder="Creation date"
+                        <input type="text" id="disabledTextInput" class="form-control" placeholder="{{poem.date}}"
                             style="width: 75%">
                     </div>
                     <div class="col-xs-6">
                         <label for="disabledTextInput" class="form-label, normal-white-text"
                             style="width: 35%">Author</label>
-                        <input type="text" id="disabledTextInput" class="form-control" placeholder="Name of the Author"
+                        <input type="text" id="disabledTextInput" class="form-control" placeholder="{{poem.user.name}}"
                             style="width: 75%" />
                     </div>
                 </div>

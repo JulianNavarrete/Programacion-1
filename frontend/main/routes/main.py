@@ -11,12 +11,19 @@ def home():
     api_url = f'{current_app.config["API_URL"]}/poems'
     headers = {"Content-Type": "application/json"}
     data = {}
-    print("asdasdasd", api_url, headers, data)
+    data['page'] = 1
+    data['per_page'] = 9
+    if 'page' in request.args:
+        data["page"] = request.args.get('page', '')
+    # print("asdasdasd", api_url, headers, data)
     response = requests.get(api_url, headers=headers, json=data)
     poems = json.loads(response.text)
+    pagination = {}
+    pagination["pages"] = json.loads(response.text)["pages"]
+    pagination["current_page"] = json.loads(response.text)["page"]
     # print(poems)
 
-    return render_template('home.html', poems=poems['poems'])
+    return render_template('home.html', poems=poems['poems'], pagination=pagination)
 
 
 @main.route('/login', methods=['GET', 'POST'])

@@ -29,21 +29,27 @@ def write_poem():
     jwt = functions.get_jwt()
     # print("Llega acá 1")
     if jwt:
+        print("jwt: ", jwt)
         if request.method == 'POST':
             title = request.form['title']
             body = request.form['body']
             # print("Llega acá 2")
             # print(title)
             # print(body)
-            id = request.cookies.get('id')
-            data = {'title': title, 'body': body, 'userId': id}
+            # user_id = request.cookies.get('id')
+            data = {'title': title, 'body': body}
             headers = {'Content-Type': 'application/json', 'Authorization': f'Bearer {jwt}'}
             if title != "" and body != "":
+                print("Llega acá 3")
                 response = requests.post(f'{current_app.config["API_URL"]}/poems', json=data, headers=headers)
+                print("response: ", response)
+                # print("Llega acá 4") # Problema: Recibo 401 todo el tiempo
                 # print(response)
                 if response.ok:
+                    print("Llega acá 5")
                     response = json.loads(response.text)
                     # print(response)
+                    print("Llega acá 6")
                     return redirect(url_for('main.home'))  # main.user_main
                 else:
                     return redirect(url_for('poems.write_poem'))
@@ -85,7 +91,7 @@ def rate_poem(id):
             return render_template('rate_poem.html', poem=poem)
 
         if request.method == 'POST':
-            api_url = f'{current_app.config["API_URL"]}scores'
+            api_url = f'{current_app.config["API_URL"]}/scores'
             headers = {"Content-Type": "application/json", "Authorization": f"Bearer {jwt}"}
             user_id = request.cookies.get('id')
             score = request.form['score']

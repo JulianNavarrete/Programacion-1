@@ -89,18 +89,22 @@ class Poems(Resource):
 
     @jwt_required()
     def post(self):
+        print("Llegué al post del back")
         user_ident = get_jwt_identity()
         poem = PoemModel.from_json(request.get_json())
-        user = db.session.query(UserModel).get_or_404(user_ident)
-        claims = get_jwt()
-        if 'role' in claims and claims['role'] == 'poet':
-            if len(user.poems) >= 0:
-                poem.userId = user_ident
-                db.session.add(poem)
-                db.session.commit()
-                return poem.to_json(), 201
-            else:
-                return 'There are not enough reviews from this user', 400
+        # user = db.session.query(UserModel).get_or_404(user_ident)
+        # claims = get_jwt()
+        print("user_ident:", user_ident)
+        if user_ident:
+            # if len(user.poems) >= 0:
+            print("Entré al if")
+            poem.userId = user_ident
+            db.session.add(poem)
+            print("Antes del commit")
+            db.session.commit()
+            return poem.to_json(), 201
+            # else:
+                # return 'There are not enough reviews from this user', 400
         else:
             return 'You are not a poet, only poets can create poems', 401
 

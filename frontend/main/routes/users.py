@@ -25,7 +25,7 @@ def modify_profile():
     jwt = request.cookies.get('access_token')
     if jwt:
         user_id = request.cookies.get('id')
-        print("Asdddd")
+        # print("Asdddd")
         if request.method == 'GET':
             api_url = f'{current_app.config["API_URL"]}/user/{user_id}'
             headers = {'Content-type': 'application/json', 'Authorization': f"Bearer {jwt}"}
@@ -35,11 +35,13 @@ def modify_profile():
             return render_template('edit_user.html', user=user)
             
         if request.method == 'POST':
-            name = request.form['Name']
+            name = request.form['name']
             print("name", name)
-            password = request.form['Password']
+            # email = request.form['email']
+            # print(email)
+            password = request.form['password']
             print("password", password)
-            api_url = f'{current_app.config["API_URL"]}/users/{user_id}'
+            api_url = f'{current_app.config["API_URL"]}/user/{user_id}'
             data = {"name": name, "plain_password": password}
             headers = {'Content-type': 'application/json', 'Authorization' : f"Bearer {jwt}"}
             if name != "" and password != "":
