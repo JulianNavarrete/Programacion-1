@@ -57,15 +57,11 @@
               <h6 class="card-subtitle mb-2 text-muted" style="margin-bottom: 2px;">Author: {{ poem.user.name }}</h6>
               <a href="{{ url_for('poems.view_poem', id=poem.id) }}" class="card-link">View poem</a>
               <a href="{{ url_for('poems.rate_poem', id=poem.id) }}" class="card-link">Rate poem</a>
+              {% if request.cookies.get('id') == poem.user.id %}
               <form action="{{ url_for('poems.delete_poem', id=poem.user.id) }}" method="POST">
                 <button type="submit" class="btn btn-danger">Delete poem</button>
               </form>
-              <!-- {% if request.cookies.get('id') == poem.user.id %} -->
-              <form action="{{ url_for('poems.delete_poem', id=poem.user.id) }}" method="POST">
-                <button type="submit" class="btn btn-danger">Delete poem</button>
-              </form>
-              <button>Hola</button>
-              <!-- {% endif %} -->
+              {% endif %}
             </div>
           </div>
         </div>
