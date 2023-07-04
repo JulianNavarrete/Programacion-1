@@ -53,3 +53,10 @@ def get_user_info(id):
 
     return requests.get(api_url, headers=headers)
 
+def delete_poem(user_id, poem_id, score, comment):
+    jwt = request.cookies.get('access_token')
+    api_url = f'{current_app.config["API_URL"]}/poem/{id}'
+    data = {"poemId": poem_id}
+    headers = {"Content-Type": "application/json", "Authorization" : f"Bearer {jwt}"}
+    return requests.delete(api_url, json=data, headers=headers)
+

@@ -105,3 +105,15 @@ def rate_poem(id):
     else:
         return redirect(url_for('main.login'))
 
+
+@poems.route('/poem/delete/<id>', methods=['POST'])
+def delete_poem(id):
+    jwt = functions.get_jwt()
+    if jwt:
+        api_url = f'{current_app.config["API_URL"]}/poem/{id}'
+        headers = {"Content-Type": "application/json", "Authorization": f"Bearer {jwt}"}
+        user_id = request.cookies.get('id')
+
+        response = functions.delete_poem(poem_id=id)
+    
+        return redirect(url_for('main.home'))  

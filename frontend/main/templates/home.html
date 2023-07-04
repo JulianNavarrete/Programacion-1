@@ -8,106 +8,113 @@
 {% block content %}
 
 <body style="background-color: #1C1C1E;">
-    <div class="header">
-        <div class="side-nav">
-            <a href="#" class="hamb-icon">
-                <img src="../static/images/hamburger_icon.png" class="hamb-icon-size">
-            </a>
-            {% if request.cookies.get('access_token') %}
-            <ul class="nav-links">
-                <li><a href="{{ url_for('main.home') }}"><i class="fa-solid fa-house"></i>
-                        <p>Home</p>
-                    </a></li>
-                <li><a href="{{ url_for('poems.write_poem') }}"><i class="fa-solid fa-file-pen"></i>
-                        <p>Write poem</p>
-                    </a></li>
-                <li><a href="{{ url_for('users.my_profile') }}"><i class="fa-solid fa-user"></i>
-                        <p>My profile</p>
-                    </a></li>
-                <li><a href="{{ url_for('main.logout') }}"><i class="fa-solid fa-right-from-bracket"></i>
-                        <p>Log out</p>
-                    </a></li>
-                <div class="active"></div>
-            </ul>
-            {% else %}
-            <ul class="nav-links-2">
-                <li><a href="{{ url_for('main.home') }}"><i class="fa-solid fa-house"></i>
-                        <p>Home</p>
-                    </a></li>
-                <li><a href="{{ url_for('main.login') }}"><i class="fa-solid fa-right-to-bracket"></i>
-                        <p>Log in</p>
-                    </a></li>
-                <li><a href="{{ url_for('main.register') }}"><i class="fa-solid fa-right-to-bracket"></i>
-                        <p>Register</p>
-                    </a></li>
-                <div class="active"></div>
-            </ul>
-            {% endif %}
-            </ul>
-        </div>
-
-        <tbody>
-            <div class="row row-cols-4 row-cols-lg-3 g-4 g-lg-3" style="margin-left: 320px">
-                {% for poem in poems %}
-                <div class="col">
-                  <div class="card">
-                    <div class="card-body" style="width: 90%;height: 60px;margin-bottom: 300px;">
-                      <h3 class="card-title">{{ poem.title }}</h3>
-                      <p class="card-text">{{ poem.body }}</p>
-                      <h6 class="card-subtitle mb-2 text-muted">Author: {{ poem.user.name }}</h6>
-                      <a href="{{url_for('poems.view_poem', id=poem.id)}}" class="card-link">View poem</a>
-                      <a href="{{url_for('poems.rate_poem', id=poem.id)}}" class="card-link">Rate poem</a>
-                    </div>
-                  </div>
-                </div>
-                {% endfor %}
-              </div>
-              
-        </tbody>
+  <div class="header">
+    <div class="side-nav">
+      <a href="#" class="hamb-icon">
+        <img src="../static/images/hamburger_icon.png" class="hamb-icon-size">
+      </a>
+      {% if request.cookies.get('access_token') %}
+      <ul class="nav-links">
+        <li><a href="{{ url_for('main.home') }}"><i class="fa-solid fa-house"></i>
+            <p>Home</p>
+          </a></li>
+        <li><a href="{{ url_for('poems.write_poem') }}"><i class="fa-solid fa-file-pen"></i>
+            <p>Write poem</p>
+          </a></li>
+        <li><a href="{{ url_for('users.my_profile') }}"><i class="fa-solid fa-user"></i>
+            <p>My profile</p>
+          </a></li>
+        <li><a href="{{ url_for('main.logout') }}"><i class="fa-solid fa-right-from-bracket"></i>
+            <p>Log out</p>
+          </a></li>
+        <div class="active"></div>
+      </ul>
+      {% else %}
+      <ul class="nav-links-2">
+        <li><a href="{{ url_for('main.home') }}"><i class="fa-solid fa-house"></i>
+            <p>Home</p>
+          </a></li>
+        <li><a href="{{ url_for('main.login') }}"><i class="fa-solid fa-right-to-bracket"></i>
+            <p>Log in</p>
+          </a></li>
+        <li><a href="{{ url_for('main.register') }}"><i class="fa-solid fa-right-to-bracket"></i>
+            <p>Register</p>
+          </a></li>
+        <div class="active"></div>
+      </ul>
+      {% endif %}
+      </ul>
     </div>
+
+    <tbody>
+      <div class="row row-cols-4 row-cols-lg-3 g-4 g-lg-3" style="margin-left: 320px">
+        {% for poem in poems %}
+        <div class="col">
+          <div class="card">
+            <div class="card-body" style="width: 90%;height: 60px;margin-bottom: 320px;">
+              <h3 class="card-title">{{ poem.title }}</h3>
+              <p class="card-text">{{ poem.body }}</p>
+              <h6 class="card-subtitle mb-2 text-muted" style="margin-bottom: 2px;">Author: {{ poem.user.name }}</h6>
+              <a href="{{ url_for('poems.view_poem', id=poem.id) }}" class="card-link">View poem</a>
+              <a href="{{ url_for('poems.rate_poem', id=poem.id) }}" class="card-link">Rate poem</a>
+              <form action="{{ url_for('poems.delete_poem', id=poem.user.id) }}" method="POST">
+                <button type="submit" class="btn btn-danger">Delete poem</button>
+              </form>
+              <!-- {% if request.cookies.get('id') == poem.user.id %} -->
+              <form action="{{ url_for('poems.delete_poem', id=poem.user.id) }}" method="POST">
+                <button type="submit" class="btn btn-danger">Delete poem</button>
+              </form>
+              <button>Hola</button>
+              <!-- {% endif %} -->
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+
+    </tbody>
+  </div>
 </body>
 
 <footer class="footer">
-    <div class="container" style="width: 80%;height: 80vh;display:flex;align-items: center;justify-content: center;">
-        <div class="col-md-12">
-            <br>
-           <nav aria-label="Page navigation example">
-               <ul class="pagination justify-content-center" style="float:center">
-               {% if pagination.current_page != 1 %}
-               <li class="page-item">
-                 <a class="page-link"
-                  href="{{ url_for('main.home', page = (pagination.current_page-1)) }}"
-                 >Previous</a>
-               </li>
-               {% else %}
-               <li class="page-item disabled">
-                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-               </li>
-               {% endif %}
-               {% for n in range(1,pagination.pages+1) %}
-                    {% if n != pagination.current_page %}
-                         <li class="page-item">
-                           <a class="page-link" href="{{ url_for('main.home', page = n) }}">{{n}}</a>
-                         </li>
-                    {% else %}
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">{{n}}</a>
-                        </li>
-                    {% endif %}
-               {% endfor %}
-               {% if pagination.current_page != pagination.pages %}
-               <li class="page-item">
-                 <a class="page-link"
-                  href="{{ url_for('main.home',page = (pagination.current_page+1)) }}" >Next</a>
-               </li>
-               {% else %}
-               <li class="page-item disabled">
-                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
-               </li>
-               {% endif %}
-             </ul>
-           </nav>
-     </div>
-   </div>
+  <div class="container" style="width: 80%;height: 80vh;display:flex;align-items: center;justify-content: center;">
+    <div class="col-md-12">
+      <br>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center" style="float:center">
+          {% if pagination.current_page != 1 %}
+          <li class="page-item">
+            <a class="page-link" href="{{ url_for('main.home', page = (pagination.current_page-1)) }}">Previous</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+          </li>
+          {% endif %}
+          {% for n in range(1,pagination.pages+1) %}
+          {% if n != pagination.current_page %}
+          <li class="page-item">
+            <a class="page-link" href="{{ url_for('main.home', page = n) }}">{{n}}</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">{{n}}</a>
+          </li>
+          {% endif %}
+          {% endfor %}
+          {% if pagination.current_page != pagination.pages %}
+          <li class="page-item">
+            <a class="page-link" href="{{ url_for('main.home',page = (pagination.current_page+1)) }}">Next</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </div>
 </footer>
 {% endblock %}
