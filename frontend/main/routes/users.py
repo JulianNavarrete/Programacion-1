@@ -5,7 +5,7 @@ from . import functions
 users = Blueprint('users', __name__, url_prefix='/')
 
 
-@users.route('users/my-profile')
+@users.route('user/my-profile')
 def my_profile():
     jwt = functions.get_jwt()
     if jwt:
@@ -20,7 +20,7 @@ def my_profile():
         return redirect(url_for('main.home'))
 
 
-@users.route('users/profile', methods=['GET', 'POST'])
+@users.route('user/edit-profile', methods=['GET', 'POST'])
 def modify_profile():
     jwt = request.cookies.get('access_token')
     if jwt:
@@ -37,22 +37,26 @@ def modify_profile():
         if request.method == 'POST':
             name = request.form['name']
             print("name", name)
-            # email = request.form['email']
-            # print(email)
+            email = request.form['email']
+            print(email)
             password = request.form['password']
             print("password", password)
             api_url = f'{current_app.config["API_URL"]}/user/{user_id}'
-            data = {"name": name, "plain_password": password}
+            # data = {"name": name, "email": email, "plain_password": password}
             headers = {'Content-type': 'application/json', 'Authorization' : f"Bearer {jwt}"}
-            if name != "" and password != "":
+            print("1")
+            if email != "":
+                print("2")
+                data = {"email": email}
                 response = requests.put(api_url, json=data, headers=headers)
+                print("3")
                 if response.status_code == 200:
                     response = json.loads(response.text)
                     return redirect(url_for('users.my_profile'))
                 else:
                     return redirect(url_for('users.my_profile'))
             
-            elif name != "":
+            if name != "":
                 data = {"name": name}
                 response = requests.put(api_url, json=data, headers=headers)
                 if response.status_code == 200:
@@ -61,7 +65,7 @@ def modify_profile():
                 else:
                     return redirect(url_for('users.my_profile'))
             
-            elif password != "":
+            if password != "":
                 data = {"plain_password": password}
                 response = requests.put(api_url, json=data, headers=headers)
                 if response.status_code == 200:
